@@ -67,6 +67,17 @@ def check_blood_compatibility(donor: str, recipient: str) -> dict:
             "recipient": recipient_clean
         }
 
+        # Validate recipient blood group
+    if recipient_clean not in BLOOD_COMPATIBILITY:
+        return {
+            "compatible": False,
+            "status": "warning",
+            "title": "Invalid Recipient Group",
+            "message": f"'{recipient}' is not a recognized blood group.",
+            "donor": donor_clean,
+            "recipient": recipient_clean
+        }
+
     # Retrieve compatible recipients for the donor
     compatible_recipients = BLOOD_COMPATIBILITY[donor_clean]
     is_compatible = recipient_clean in compatible_recipients
